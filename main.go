@@ -1,8 +1,6 @@
 package main
 
 import (
-  "fmt"
-
   log "github.com/Sirupsen/logrus"
   "github.com/paddyquinn/shakespeare-analyzer/analyzer"
 )
@@ -10,10 +8,10 @@ import (
 const link = "http://www.ibiblio.org/xml/examples/shakespeare/macbeth.xml"
 
 func main() {
-  play, err := analyzer.Analyze(link)
+  characters, err := analyzer.Analyze(link)
   if err != nil {
     log.Fatal(err)
   }
 
-  fmt.Println(play)
+  characters.Print()
 }

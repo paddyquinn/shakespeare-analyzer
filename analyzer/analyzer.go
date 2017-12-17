@@ -5,16 +5,19 @@ import (
   "net/http"
 )
 
+// Play is a struct that contains all of the speech elements from a play
 type Play struct {
   SpeechElements []SpeechElement `xml:"ACT>SCENE>SPEECH"`
 }
 
+// SpeechElement is a struct that represents a line or group of lines a character speaks during the play
 type SpeechElement struct {
   Speaker string   `xml:"SPEAKER"`
   Lines   []string `xml:"LINE"`
 }
 
-func Analyze(link string) (*Play, error) {
+// Analyze takes a link to an xml version of a play and returns a list of characters sorted by lines spoken
+func Analyze(link string) (Characters, error) {
   response, err := http.Get(link)
   if err != nil {
     return nil, err
@@ -26,5 +29,6 @@ func Analyze(link string) (*Play, error) {
   play := &Play{}
   decoder.Decode(play)
 
-  return play, nil
+  characters := NewCharacters(play)
+  return characters, nil
 }

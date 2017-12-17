@@ -26,17 +26,17 @@ func (c *Character) Print() {
 type Characters []*Character
 
 // NewCharacters creates a Characters type from a play, with the characters sorted by the number of lines they have
-func NewCharacters(play *Play) Characters {
+func NewCharacters(play *play) Characters {
 	characterMap := map[string]int{}
-	for _, speechElement := range play.SpeechElements {
-		speaker := strings.Title(strings.ToLower(speechElement.Speaker))
+	for _, element := range play.SpeechElements {
+		speaker := strings.Title(strings.ToLower(element.Speaker))
 		if speaker == all {
 			continue
 		}
 
 		// If the character is not found in the map numLines will default to 0
 		numLines := characterMap[speaker]
-		characterMap[speaker] = numLines + len(speechElement.Lines)
+		characterMap[speaker] = numLines + len(element.Lines)
 	}
 
 	characters := Characters{}

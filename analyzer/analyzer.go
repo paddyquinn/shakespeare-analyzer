@@ -5,13 +5,14 @@ import (
   "net/http"
 )
 
-// Play is a struct that contains all of the speech elements from a play
-type Play struct {
-  SpeechElements []SpeechElement `xml:"ACT>SCENE>SPEECH"`
+// The following 2 structs are unexported because they are only used intermediately in this package to go from XML to
+// the Characters struct. The elements within each struct need to be exported for `decoder.Decode` to work.
+
+type play struct {
+  SpeechElements []speechElement `xml:"ACT>SCENE>SPEECH"`
 }
 
-// SpeechElement is a struct that represents a line or group of lines a character speaks during the play
-type SpeechElement struct {
+type speechElement struct {
   Speaker string   `xml:"SPEAKER"`
   Lines   []string `xml:"LINE"`
 }
@@ -26,7 +27,7 @@ func Analyze(link string) (Characters, error) {
   defer response.Body.Close()
 
   decoder := xml.NewDecoder(response.Body)
-  play := &Play{}
+  play := &play{}
   decoder.Decode(play)
 
   characters := NewCharacters(play)

@@ -8,7 +8,8 @@ import (
 const link = "http://www.ibiblio.org/xml/examples/shakespeare/macbeth.xml"
 
 func main() {
-  characters, err := analyzer.Analyze(link)
+  a := analyzer.NewAnalyzer()
+  characters, err := a.Analyze(link)
   if err != nil {
     log.Fatal(err)
   }

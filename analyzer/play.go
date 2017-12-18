@@ -4,10 +4,10 @@ package analyzer
 // the Characters struct. The elements within each struct need to be exported for `decoder.Decode` to work.
 
 type play struct {
-	SpeechElements []speechElement `xml:"ACT>SCENE>SPEECH"`
+  SpeechElements []speechElement `xml:"ACT>SCENE>SPEECH"`
 }
 
 type speechElement struct {
-	Speaker string   `xml:"SPEAKER"`
-	Lines   []string `xml:"LINE"`
+  Speaker string   `xml:"SPEAKER"`
+  Lines   []string `xml:"LINE"`
 }

@@ -1,18 +1,45 @@
 package main
 
 import (
+  "fmt"
+  "os"
+
   log "github.com/Sirupsen/logrus"
   "github.com/paddyquinn/shakespeare-analyzer/analyzer"
 )
 
-const link = "http://www.ibiblio.org/xml/examples/shakespeare/macbeth.xml"
+const (
+  consoleFlag = "-c"
+  prompt      = "Enter link: "
+  serverFlag  = "-s"
+  usageString = "Usage: %s -c | -s\n\nOptions:\n\t-c\tconsole mode\n\t-s\tserver mode\n"
+)
 
 func main() {
-  a := analyzer.NewAnalyzer()
-  characters, err := a.Analyze(link)
-  if err != nil {
-    log.Fatal(err)
+  if len(os.Args) != 2 {
+    usage(os.Args[0])
+    return
   }
 
-  characters.Print()
+  if os.Args[1] == consoleFlag {
+    fmt.Print(prompt)
+    var link string
+    fmt.Scanln(&link)
+
+    a := analyzer.NewAnalyzer()
+    characters, err := a.Analyze(link)
+    if err != nil {
+      log.Fatal(err)
+    }
+
+    characters.Print()
+  } else if os.Args[1] == serverFlag {
+    fmt.Println("TODO")
+  } else {
+    usage(os.Args[0])
+  }
+}
+
+func usage(executable string) {
+  fmt.Printf(usageString, executable)
 }

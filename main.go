@@ -6,6 +6,7 @@ import (
 
   log "github.com/Sirupsen/logrus"
   "github.com/paddyquinn/shakespeare-analyzer/analyzer"
+  "github.com/paddyquinn/shakespeare-analyzer/router"
 )
 
 const (
@@ -34,7 +35,7 @@ func main() {
 
     characters.Print()
   } else if os.Args[1] == serverFlag {
-    fmt.Println("TODO")
+    router.Run()
   } else {
     usage(os.Args[0])
   }

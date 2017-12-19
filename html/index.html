@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Shakespeare Analyzer</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    </head>
+    <div ng-app="shakespeare-analyzer" ng-controller="formCtrl">
+        <form novalidate>
+            Link: <input type="text" ng-model="link">
+            <button ng-click="analyze()">Analyze</button>
+        </form>
+        <table>
+            <tr ng-repeat="c in characters">
+                <td>{{c.NumLines}}</td>
+                <td>{{c.Name}}</td>
+            </tr>
+        </table>
+    </div>
+    <script>
+        var app = angular.module('shakespeare-analyzer', []);
+        app.controller('formCtrl', function($scope, $http) {
+            $scope.analyze = function() {
+                $http.get("analyze?link=" + $scope.link).then(function(response) {
+                    $scope.characters = response.data
+                })
+            }
+        });
+    </script>
+</html>

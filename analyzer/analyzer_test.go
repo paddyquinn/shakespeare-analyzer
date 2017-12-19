@@ -27,6 +27,8 @@ func TestAnalyzer_Analyze(t *testing.T) {
       Convey("no characters should be returned", func() {
         So(characters, ShouldBeNil)
       })
+
+      mock.AssertExpectations(t)
     })
 
     Convey("that is passed a valid link", func() {
@@ -58,6 +60,8 @@ func TestAnalyzer_Analyze(t *testing.T) {
         Convey("no characters should be returned", func() {
           So(characters, ShouldBeNil)
         })
+
+        mock.AssertExpectations(t)
       })
 
       Convey("that returns valid xml", func() {
@@ -90,6 +94,8 @@ func TestAnalyzer_Analyze(t *testing.T) {
           So(characters[1].Name, ShouldEqual, "Character One")
           So(characters[1].NumLines, ShouldEqual, 1)
         })
+
+        mock.AssertExpectations(t)
       })
 
       Convey("that returns non-xml data", func() {
@@ -128,6 +134,8 @@ func TestAnalyzer_Analyze(t *testing.T) {
         Convey("no characters should be returned", func() {
           So(characters, ShouldBeNil)
         })
+
+        mock.AssertExpectations(t)
       })
     })
   })
